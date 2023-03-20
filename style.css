@@ -1,0 +1,39 @@
+body {
+  width: 20%;
+  margin: 0 auto;
+  min-width: 300px;
+}
+
+._listTarefas {
+  display: flex;
+  flex-direction: column;
+}
+
+.btClass {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+h3 {
+  /* border: solid red 1px; */
+  text-align: center;
+}
+
+.inputTarefas {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* border: solid red 1px; */
+  width: 100%;
+}
+
+._btInput {
+  margin-left: 10px;
+}
+
+button {
+  width: 120px;
+  height: 20px;
+  border: none;
+}

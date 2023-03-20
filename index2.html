@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de tarefas</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h3>Lista de Tarefas</h3>
+    <div class="inputTarefas">
+      <input type="text" class="inputText" />
+      <button onclick="_addTarefa()" class="_btInput">Adiciona Tarefa</button>
+    </div><br>
+    <div class="_listTarefas"></div>
+    
+    <script src="tarefa.js" type="module"></script>
+    <script type="module">
+      import { createDiv, createCheck, createText, createButton } from './tarefa.js';
+
+      // Carrega as tarefas armazenadas no localStorage
+      const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+      // Percorre a lista de tarefas e adiciona cada tarefa à lista na página
+      tarefas.forEach(tarefa => {
+        const _inList = document.querySelector("._listTarefas");
+        const _div = createDiv(_inList);
+        const _check = createCheck(_div);
+        const _text = createText(_div, tarefa);
+        const _btn = createButton(_div);
+        
+        _btn.addEventListener("click", () => {
+          _div.remove();
+          // Remove a tarefa da lista e salva a lista atualizada no localStorage
+          const index = tarefas.indexOf(tarefa);
+          if (index !== -1) {
+            tarefas.splice(index, 1);
+            localStorage.setItem("tarefas", JSON.stringify(tarefas));
+          }
+        });
+      });
+
+      // Adiciona uma nova tarefa à lista
+      window._addTarefa = () => {
+        const _inText = document.querySelector(".inputText");
+        const _inList = document.querySelector("._listTarefas");
+        const _div = createDiv(_inList);
+        const _check = createCheck(_div);
+        const texto = _inText.value;
+        const _text = createText(_div, texto);
+        const _btn = createButton(_div);
+        
+        _inText.value = "";
+        
+        // Adiciona a nova tarefa à lista e salva a lista atualizada no localStorage
+        tarefas.push(texto);
+        localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+        _btn.addEventListener("click", () => {
+          _div.remove();
+          // Remove a tarefa da lista e salva a lista atualizada no localStorage
+          const index = tarefas.indexOf(texto);
+          if (index !== -1) {
+            tarefas.splice(index, 1);
+            localStorage.setItem("tarefas", JSON.stringify(tarefas));
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
